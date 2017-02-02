@@ -162,7 +162,7 @@ neverallow {
 } self:capability sys_ptrace;
 
 # Limit device node creation to these whitelisted domains.
-neverallow {
+allow {
   domain
   -kernel
   -init
@@ -267,7 +267,7 @@ allow { domain -init -ueventd } device:chr_file { open read write };
 # Limit what domains can mount filesystems or change their mount flags.
 # sdcard_type / vfat is exempt as a larger set of domains need
 # this capability, including device-specific domains.
-neverallow { domain -kernel -init -recovery -vold -zygote -update_engine -otapreopt_chroot } { fs_type -sdcard_type }:filesystem { mount remount relabelfrom relabelto };
+allow { domain -kernel -init -recovery -vold -zygote -update_engine -otapreopt_chroot } { fs_type -sdcard_type }:filesystem { mount remount relabelfrom relabelto };
 
 #
 # Assert that, to the extent possible, we're not loading executable content from
